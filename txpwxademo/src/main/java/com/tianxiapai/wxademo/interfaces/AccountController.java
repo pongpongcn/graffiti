@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zcunsoft.weixin.api.model.WxError;
 import com.zcunsoft.weixin.api.sns.result.WxaSession;
@@ -35,7 +33,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/login_wx", method = RequestMethod.POST)
-	public void login(@RequestParam String code) throws JsonParseException, JsonMappingException, IOException {
+	public void login(@RequestParam String code) {
 		String url = "https://api.weixin.qq.com/sns/jscode2session?appid={appid}&secret={secret}&js_code={js_code}&grant_type={grant_type}";
 
 		Map<String, String> uriVariables = new HashMap<>();
@@ -56,19 +54,42 @@ public class AccountController {
 			TypeReference<Map<String, String>> resultMapTypeReference = new TypeReference<Map<String, String>>() {
 			};
 
-			Map<String, String> resultMap = wxObjectMapper.readValue(responseEntity.getBody(), resultMapTypeReference);
+			Map<String, String> resultMap;
+			try {
+				resultMap = wxObjectMapper.readValue(responseEntity.getBody(), resultMapTypeReference);
+			} catch (IOException e) {
+				// 这种情况是非预期的。
+				throw new RuntimeException("Failed to read value to Map, value: " + responseEntity.getBody() + ".", e);
+			}
 
-			if (resultMap.containsKey("errcode")) {
-				WxError wxError = wxObjectMapper.readValue(responseEntity.getBody(), WxError.class);
-				if (logger.isDebugEnabled()) {
-					logger.debug("Got WxError: {}.", wxError);
+			if (!resultMap.containsKey("errcode")) {
+				WxaSession wxaSession;
+				try {
+					wxaSession = wxObjectMapper.readValue(responseEntity.getBody(), WxaSession.class);
+				} catch (IOException e) {
+					// 这种情况是非预期的。
+					throw new RuntimeException(
+							"Failed to read value to WxaSession, value: " + responseEntity.getBody() + ".", e);
 				}
-			} else {
-				WxaSession wxaSession = wxObjectMapper.readValue(responseEntity.getBody(), WxaSession.class);
 				if (logger.isDebugEnabled()) {
 					logger.debug("Got WxaSession: {}.", wxaSession);
 				}
+			} else {
+				WxError wxError;
+				try {
+					wxError = wxObjectMapper.readValue(responseEntity.getBody(), WxError.class);
+					if (logger.isDebugEnabled()) {
+						logger.debug("Got WxError: {}.", wxError);
+					}
+				} catch (IOException e) {
+					// 这种情况是非预期的。
+					throw new RuntimeException(
+							"Failed to read value to WxError, value: " + responseEntity.getBody() + ".", e);
+				}
 			}
+		} else {
+			// 这种情况是非预期的。
+			throw new RuntimeException("Weixin API return unexpected statusCode: " + responseEntity.getStatusCode());
 		}
 	}
 }
