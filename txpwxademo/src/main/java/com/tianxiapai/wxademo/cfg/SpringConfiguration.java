@@ -6,9 +6,10 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.zcunsoft.weixin.api.WxMpService;
+import com.zcunsoft.weixin.api.impl.WxMpServiceImpl;
+
 import me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage;
-import me.chanjar.weixin.mp.api.WxMpService;
-import me.chanjar.weixin.mp.api.impl.WxMpServiceImpl;
 
 @Configuration
 @EnableConfigurationProperties({ WxMpConfig.class })

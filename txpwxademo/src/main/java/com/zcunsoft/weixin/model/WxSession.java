@@ -1,8 +1,8 @@
-package com.zcunsoft.weixin.api.sns.result;
+package com.zcunsoft.weixin.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class WxaSession {
+public class WxSession {
 	@JsonProperty("session_key")
 	private String sessionKey;
 	@JsonProperty("expires_in")
