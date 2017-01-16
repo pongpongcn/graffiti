@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.zcunsoft.weixin.api.WxMpService;
+import com.zcunsoft.weixin.mp.api.WxMpService;
 
 import me.chanjar.weixin.common.exception.WxErrorException;
 

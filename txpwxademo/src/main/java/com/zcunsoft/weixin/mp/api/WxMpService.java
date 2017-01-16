@@ -1,6 +1,6 @@
-package com.zcunsoft.weixin.api;
+package com.zcunsoft.weixin.mp.api;
 
-import com.zcunsoft.weixin.model.WxSession;
+import com.zcunsoft.weixin.mp.model.result.WxSession;
 
 import me.chanjar.weixin.common.exception.WxErrorException;
 

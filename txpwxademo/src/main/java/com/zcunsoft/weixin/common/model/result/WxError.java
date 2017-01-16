@@ -1,4 +1,4 @@
-package com.zcunsoft.weixin.model;
+package com.zcunsoft.weixin.common.model.result;
 
 /**
  * 微信API错误信息

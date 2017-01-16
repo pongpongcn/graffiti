@@ -1,4 +1,4 @@
-package com.zcunsoft.weixin.model;
+package com.zcunsoft.weixin.mp.model.result;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

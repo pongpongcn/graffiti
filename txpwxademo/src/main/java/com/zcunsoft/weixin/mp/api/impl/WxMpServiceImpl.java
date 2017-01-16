@@ -1,4 +1,4 @@
-package com.zcunsoft.weixin.api.impl;
+package com.zcunsoft.weixin.mp.api.impl;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -12,9 +12,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zcunsoft.weixin.api.WxMpService;
-import com.zcunsoft.weixin.model.WxError;
-import com.zcunsoft.weixin.model.WxSession;
+import com.zcunsoft.weixin.common.model.result.WxError;
+import com.zcunsoft.weixin.mp.api.WxMpService;
+import com.zcunsoft.weixin.mp.model.result.WxSession;
 
 import me.chanjar.weixin.common.exception.WxErrorException;
 
