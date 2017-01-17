@@ -39,7 +39,7 @@ public class WxMpServiceImpl extends me.chanjar.weixin.mp.api.impl.WxMpServiceIm
 
 		if (responseEntity.getStatusCode() == HttpStatus.OK) {
 			if (logger.isDebugEnabled()) {
-				logger.debug("Called jscode2session url: {}, result: {}.", url, responseEntity.getBody());
+				logger.debug("Called jscode2session result: {}.", responseEntity.getBody());
 			}
 
 			Map<String, String> resultMap;

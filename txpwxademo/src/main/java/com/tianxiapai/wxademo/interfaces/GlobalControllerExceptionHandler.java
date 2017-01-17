@@ -12,9 +12,9 @@ import com.tianxiapai.wxademo.model.WxaDemoError;
 @ControllerAdvice
 public class GlobalControllerExceptionHandler {
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	@ExceptionHandler(value = Exception.class)
+	@ExceptionHandler(value = WxaDemoErrorException.class)
 	@ResponseBody
-	public WxaDemoError defaultErrorHandler(WxaDemoErrorException e) throws Exception {
+	public WxaDemoError defaultErrorHandler(WxaDemoErrorException e) {
 		return e.getError();
 	}
 }
