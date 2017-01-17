@@ -10,13 +10,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tianxiapai.wxademo.exception.WxaDemoErrorException;
+import com.tianxiapai.wxademo.interfaces.dto.LoginWxRequest;
+import com.tianxiapai.wxademo.interfaces.dto.LoginWxResponse;
 import com.tianxiapai.wxademo.model.WxaDemoError;
 import com.tianxiapai.wxademo.security.WeixinUserAuthentication;
 import com.zcunsoft.weixin.mp.api.WxMpService;
@@ -41,7 +43,10 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/login_wx", method = RequestMethod.POST)
-	public void login(@RequestParam String code, HttpSession session) throws WxaDemoErrorException {
+	public LoginWxResponse login(@RequestBody LoginWxRequest request, HttpSession session)
+			throws WxaDemoErrorException {
+		String code = request.getCode();
+
 		if (logger.isDebugEnabled()) {
 			logger.debug("Try to login by weixin js code: {}.", code);
 		}
@@ -53,6 +58,10 @@ public class AccountController {
 			// makes WxSession bind to user.
 			Authentication authentication = new WeixinUserAuthentication(AuthorityUtils.NO_AUTHORITIES);
 			SecurityContextHolder.getContext().setAuthentication(authentication);
+
+			LoginWxResponse response = new LoginWxResponse();
+			response.setSessionId(session.getId());
+			return response;
 		} catch (WxErrorException e) {
 			if (logger.isWarnEnabled()) {
 				logger.warn("Execute getSessionByJsCode failed, js code: {}.", code);
