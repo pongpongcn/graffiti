@@ -3,8 +3,6 @@ package com.tianxiapai.wxademo.cfg;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.RedisSerializer;
 
 import com.zcunsoft.weixin.mp.api.WxMpService;
 import com.zcunsoft.weixin.mp.api.impl.WxMpServiceImpl;
@@ -30,10 +28,5 @@ public class SpringConfiguration {
 		wxService.setWxMpConfigStorage(config);
 
 		return wxService;
-	}
-
-	@Bean(name = "springSessionDefaultRedisSerializer")
-	RedisSerializer<Object> springSessionDefaultRedisSerializer() {
-		return new GenericJackson2JsonRedisSerializer();
 	}
 }

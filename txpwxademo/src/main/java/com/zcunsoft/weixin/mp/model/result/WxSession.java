@@ -1,8 +1,12 @@
 package com.zcunsoft.weixin.mp.model.result;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class WxSession {
+public class WxSession implements Serializable {
+	private static final long serialVersionUID = -4267301003105863705L;
+
 	@JsonProperty("session_key")
 	private String sessionKey;
 	@JsonProperty("expires_in")

@@ -1,9 +1,5 @@
 package com.tianxiapai.wxademo.interfaces;
 
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Map;
-
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -30,19 +26,12 @@ public class AccountController {
 	public AccountController(WxMpService wxService) {
 		this.wxService = wxService;
 	}
-
-	@RequestMapping("/token")
-	public Map<String, String> token(HttpSession session) {
-		return Collections.singletonMap("token", session.getId());
-	}
-
+	
 	@RequestMapping(value = "/login_wx", method = RequestMethod.POST)
 	public void login(@RequestParam String code, HttpSession session) throws WxaDemoErrorException {
 		if (logger.isDebugEnabled()) {
 			logger.debug("Try to login by weixin js code: {}.", code);
 		}
-
-		session.setAttribute("currentTimeInMillis", Calendar.getInstance().getTimeInMillis());
 
 		try {
 			WxSession wxSession = wxService.getSessionByJsCode(code);
