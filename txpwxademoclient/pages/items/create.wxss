@@ -1,0 +1,14 @@
+/* pages/items/create.wxss */
+.section{
+    margin-bottom: 50rpx;
+    background-color: #ffffff;
+}
+
+.content{
+    height: 200rpx;
+    width: 100%;
+}
+
+.form {
+  background-color: #f4f4f4;
+}
