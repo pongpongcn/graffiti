@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,7 +44,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/login_wx", method = RequestMethod.POST)
-	public LoginWxResponse login(@RequestBody LoginWxRequest request, HttpSession session)
+	public LoginWxResponse login(@Validated @RequestBody LoginWxRequest request, HttpSession session)
 			throws WxaDemoErrorException {
 		String code = request.getCode();
 

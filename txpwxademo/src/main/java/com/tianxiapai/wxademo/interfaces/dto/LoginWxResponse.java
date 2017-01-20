@@ -1,6 +1,9 @@
 package com.tianxiapai.wxademo.interfaces.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class LoginWxResponse {
+	@NotNull
 	private String sessionId;
 
 	public String getSessionId() {

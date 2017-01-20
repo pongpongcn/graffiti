@@ -1,6 +1,9 @@
 package com.tianxiapai.wxademo.interfaces.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class LoginWxRequest {
+	@NotNull
 	private String code;
 
 	public String getCode() {
