@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.xmlpull.v1.XmlPullParserException;
 
-import com.tianxiapai.wxademo.exception.WxaDemoErrorException;
 import com.tianxiapai.wxademo.interfaces.dto.UploadResponse;
-import com.tianxiapai.wxademo.model.WxaDemoError;
 
 import io.minio.MinioClient;
 import io.minio.errors.ErrorResponseException;
@@ -40,8 +38,7 @@ public class FileController {
 	}
 
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public UploadResponse upload(@RequestParam("file") MultipartFile file, Principal user)
-			throws WxaDemoErrorException {
+	public UploadResponse upload(@RequestParam("file") MultipartFile file, Principal user) {
 		if (logger.isDebugEnabled()) {
 			logger.debug("file size: {}, contentType: {}, name: {}, originalFilename: {}.", file.getSize(),
 					file.getContentType(), file.getName(), file.getOriginalFilename());
@@ -67,8 +64,7 @@ public class FileController {
 				logger.error("putObject failed.", e);
 			}
 			
-			WxaDemoError error = new WxaDemoError(324, "putObject failed.");
-			throw new WxaDemoErrorException(error, e);
+			throw new RuntimeException("putObject failed.", e);
 		}
 	}
 }
