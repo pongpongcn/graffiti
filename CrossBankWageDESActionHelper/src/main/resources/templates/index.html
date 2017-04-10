@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" ng-app="simpleApp">
+<head>
+<meta charset="UTF-8" />
+<title>Cross Bank Wage DES Action Helper</title>
+<script th:src="@{/webjars/angularjs/1.6.2/angular.js}"></script>
+<script th:src="@{/js/app.js}"></script>
+</head>
+<body>
+	<div ng-controller="EncryptHelperController">
+		<h1>加密</h1>
+		<table>
+			<tr>
+				<th>明文</th>
+				<td><textarea ng-model="data" ng-change="update()" rows="10"
+						cols="50" ng-trim="false"></textarea></td>
+			</tr>
+			<tr>
+				<th>密钥</th>
+				<td><input ng-model="key" ng-change="update()" /></td>
+			</tr>
+			<tr>
+				<th>填充字符</th>
+				<td><input ng-model="padding" ng-change="update()"
+					maxlength="1" ng-trim="false" /></td>
+			</tr>
+			<tr>
+				<th>填充左侧</th>
+				<td><input ng-model="paddingLeft" ng-change="update()"
+					type="checkbox" /></td>
+			</tr>
+			<tr>
+				<th>调整后明文</th>
+				<td><textarea ng-model="adjustedData" rows="10" cols="50"
+						readonly="readonly"></textarea></td>
+			</tr>
+			<tr>
+				<th>密文</th>
+				<td><textarea ng-model="encryptedData" rows="10" cols="50"
+						readonly="readonly"></textarea></td>
+			</tr>
+		</table>
+	</div>
+	<hr/>
+	<div ng-controller="DecryptHelperController">
+		<h1>解密</h1>
+		<table>
+			<tr>
+				<th>密文</th>
+				<td><textarea ng-model="encryptedData" ng-change="update()" rows="10"
+						cols="50" ng-trim="false"></textarea></td>
+			</tr>
+			<tr>
+				<th>密钥</th>
+				<td><input ng-model="key" ng-change="update()" /></td>
+			</tr>
+			<tr>
+				<th>明文</th>
+				<td><textarea ng-model="data" rows="10" cols="50"
+						readonly="readonly"></textarea></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
